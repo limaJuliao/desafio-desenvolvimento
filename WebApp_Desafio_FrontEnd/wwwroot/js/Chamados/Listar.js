@@ -69,7 +69,7 @@
                         error: function (result) {
 
                             Swal.fire({
-                                text: result,
+                                text: result.responseText,
                                 confirmButtonText: 'OK',
                                 icon: 'error'
                             });

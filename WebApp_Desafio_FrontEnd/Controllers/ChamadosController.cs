@@ -139,7 +139,7 @@ namespace WebApp_Desafio_FrontEnd.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ResponseViewModel(ex));
+                return BadRequest(ex.Message);
             }
         }
 
