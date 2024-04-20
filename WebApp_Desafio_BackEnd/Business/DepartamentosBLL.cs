@@ -9,6 +9,11 @@ namespace WebApp_Desafio_BackEnd.Business
     {
         private DepartamentosDAL dal = new DepartamentosDAL();
 
+        public bool ExcluirDepartamento(int idDepartamento)
+        {
+            return dal.ExcluirDepartamento(idDepartamento);
+        }
+
         public bool GravarDepartamento(int id, string descricao)
         {
             return dal.GravarDepartamento(id, descricao);

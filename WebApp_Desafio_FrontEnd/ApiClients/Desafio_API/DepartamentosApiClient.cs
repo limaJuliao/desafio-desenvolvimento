@@ -12,6 +12,7 @@ namespace WebApp_Desafio_FrontEnd.ApiClients.Desafio_API
 
         private const string departamentosListUrl = "api/Departamentos/Listar";
         private const string departamentosGravarUrl = "api/Departamentos/Gravar";
+        private const string departamentosExcluir = "api/Departamentos/Excluir";
 
 
         private string desafioApiUrl = "https://localhost:44388/"; // Endereço API IIS-Express
@@ -43,6 +44,17 @@ namespace WebApp_Desafio_FrontEnd.ApiClients.Desafio_API
         internal bool DepartamentoGravar(DepartamentoViewModel model)
         {
             var response = Post($"{desafioApiUrl}{departamentosGravarUrl}", model, _headers);
+
+            EnsureSuccessStatusCode(response);
+
+            var json = ReadHttpWebResponseMessage(response);
+
+            return JsonConvert.DeserializeObject<bool>(json);
+        }
+
+        internal bool DepartamentoExcluir(int id)
+        {
+            var response = Delete($"{desafioApiUrl}{departamentosExcluir}/{id}", _headers);
 
             EnsureSuccessStatusCode(response);
 

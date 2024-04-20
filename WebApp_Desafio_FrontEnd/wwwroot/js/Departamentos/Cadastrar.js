@@ -7,10 +7,12 @@ $('#btnSalvar').click(() => {
         return;
     }
 
+    let data = SerielizeForm($('#form'))
+
     $.ajax({
         type: 'POST',
         url: form.attr('action'),
-        data: form.attr('action'),
+        data,
         success: result => {
 
             Swal.fire({
@@ -21,7 +23,7 @@ $('#btnSalvar').click(() => {
                 window.location.href = `${config.contextPath}${result.Controller}/${result.Action}`;
             });
 
-        },  
+        },
         error: result => {
 
             Swal.fire({

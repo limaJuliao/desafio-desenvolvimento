@@ -49,6 +49,21 @@ namespace WebApp_Desafio_BackEnd.DataAccess
             return lstDepartamentos;
         }
 
+        internal bool ExcluirDepartamento(int idDepartamento)
+        {
+            using (SQLiteConnection dbConnection = new SQLiteConnection(CONNECTION_STRING))
+            {
+                using (SQLiteCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbCommand.CommandText = $"DELETE FROM departamentos WHERE ID = {idDepartamento}";
+
+                    dbConnection.Open();
+
+                    return dbCommand.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
         internal bool GravarDepartamento(int id, string descricao)
         {
             using (SQLiteConnection dbConnection = new SQLiteConnection(CONNECTION_STRING))
