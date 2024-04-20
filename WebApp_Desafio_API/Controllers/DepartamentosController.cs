@@ -103,16 +103,16 @@ namespace WebApp_Desafio_API.Controllers
         }
 
 
-        [HttpDelete("Excluir/{id}")]
+        [HttpDelete("Excluir")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public IActionResult Excluir([FromRoute] int id)
+        public IActionResult Excluir([FromQuery] int idDepartamento)
         {
             try
             {
-                var resultado = bll.ExcluirDepartamento(id);
+                var resultado = bll.ExcluirDepartamento(idDepartamento);
 
                 return Ok(resultado);
             }

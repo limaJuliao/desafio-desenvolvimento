@@ -56,7 +56,8 @@ namespace WebApp_Desafio_FrontEnd.ApiClients.Desafio_API
 
         internal bool DepartamentoExcluir(int id)
         {
-            var response = Delete($"{desafioApiUrl}{departamentosExcluirUrl}/{id}", _headers);
+            var queries = new Dictionary<string, object>() { { "idDepartamento", id } };
+            var response = Delete($"{desafioApiUrl}{departamentosExcluirUrl}", queries, _headers);
             EnsureSuccessStatusCode(response);
             var json = ReadHttpWebResponseMessage(response);
 

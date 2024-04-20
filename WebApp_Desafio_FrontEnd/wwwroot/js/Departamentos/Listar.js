@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
 
     var table = $('#dataTables-Departamentos').DataTable({
         paging: false,
@@ -34,15 +35,22 @@
         let data = table.row('.selected').data();
         let idRegistro = data.ID;
 
+        if (!idRegistro || idRegistro <= 0)
+            return;
+
+
+        let url = `${config.contextPath}Departamentos/Excluir/${idRegistro}`;
+
         if (idRegistro) {
             Swal.fire({
                 text: `Tem certeza de que deseja excluir ${data.Descricao} ?`,
                 type: "warning",
                 showCancelButton: true,
             }).then(function (result) {
+
                 if (result.value) {
                     $.ajax({
-                        url: `${config.contextPath}Departamentos/Excluir/${idRegistro}`,
+                        url,
                         type: 'DELETE',
                         contentType: 'application/json',
                         error: function (result) {
@@ -65,8 +73,7 @@
                             })
                         }
                     })
-                }
-                else {
+                } else {
                     console.log('Cancelou a exclusão');
                 }
             })

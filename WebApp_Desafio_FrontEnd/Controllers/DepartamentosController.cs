@@ -96,7 +96,7 @@ namespace WebApp_Desafio_FrontEnd.Controllers
         }
 
 
-        [HttpGet]
+        [HttpDelete]
         public IActionResult Excluir([FromRoute] int id)
         {
             try
