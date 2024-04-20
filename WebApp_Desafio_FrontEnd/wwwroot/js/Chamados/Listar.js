@@ -17,14 +17,21 @@
         ],
     });
 
-    $('#dataTables-Chamados tbody').on('click', 'tr', function () {
+    let chamadosEditarUrl = `${config.contextPath}Chamados/Editar`;
+
+    $('#dataTables-Chamados tbody')
+        .on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
         } else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
         }
-    });
+        })
+        .on('dblclick', 'tr', function () {
+            let data = table.row(this).data();
+            window.location.href = `${chamadosEditarUrl}/${data.ID}`;
+        });        ;
 
     $('#btnRelatorio').click(function () {
         window.location.href = config.contextPath + 'Chamados/Report';
@@ -36,7 +43,7 @@
 
     $('#btnEditar').click(function () {
         var data = table.row('.selected').data();
-        window.location.href = config.contextPath + 'Chamados/Editar/' + data.ID;
+        window.location.href = `${chamadosEditarUrl}/${data.ID}`;
     });
 
     $('#btnExcluir').click(function () {
