@@ -56,6 +56,22 @@ namespace WebApp_Desafio_API.Controllers
             }
         }
 
+        [HttpGet("Obter")]
+        [ProducesResponseType(typeof(ChamadoResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public IActionResult Obter([FromQuery] int idDepartamento)
+        {
+            var departamento = bll.ObterDepartamento(idDepartamento);
+
+            return Ok(new DepartamentoResponse
+            {
+                id = departamento.ID,
+                descricao = departamento.Descricao
+            });
+        }
+
         [HttpPost("Gravar")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]

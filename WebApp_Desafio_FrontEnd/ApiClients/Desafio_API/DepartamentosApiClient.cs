@@ -12,7 +12,9 @@ namespace WebApp_Desafio_FrontEnd.ApiClients.Desafio_API
 
         private const string departamentosListUrl = "api/Departamentos/Listar";
         private const string departamentosGravarUrl = "api/Departamentos/Gravar";
-        private const string departamentosExcluir = "api/Departamentos/Excluir";
+        private const string departamentosExcluirUrl = "api/Departamentos/Excluir";
+        private const string departamentoEditarUrl = "api/Departamentos/editar";
+        private const string departamentosObterUrl = "api/Departamentos/Obter";
 
 
         private string desafioApiUrl = "https://localhost:44388/"; // Endereço API IIS-Express
@@ -54,13 +56,26 @@ namespace WebApp_Desafio_FrontEnd.ApiClients.Desafio_API
 
         internal bool DepartamentoExcluir(int id)
         {
-            var response = Delete($"{desafioApiUrl}{departamentosExcluir}/{id}", _headers);
+            var response = Delete($"{desafioApiUrl}{departamentosExcluirUrl}/{id}", _headers);
+            EnsureSuccessStatusCode(response);
+            var json = ReadHttpWebResponseMessage(response);
+
+            return JsonConvert.DeserializeObject<bool>(json);
+        }
+
+        internal DepartamentoViewModel DepartamentoObter(int idDepartamento)
+        {
+            var querys = new Dictionary<string, object>()
+            {
+                { "idDepartamento", idDepartamento }
+            };
+            var response = Get($"{desafioApiUrl}{departamentosObterUrl}", querys, _headers);
 
             EnsureSuccessStatusCode(response);
 
             var json = ReadHttpWebResponseMessage(response);
 
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<DepartamentoViewModel>(json);
         }
     }
 }

@@ -83,11 +83,39 @@ namespace WebApp_Desafio_BackEnd.DataAccess
                             WHERE ID=@id;";
                     }
 
-                    dbCommand.Parameters.AddWithValue("@descricao", descricao);
+                    dbCommand.Parameters.AddWithValue("descricao", descricao);
                     dbCommand.Parameters.AddWithValue("id", id);
 
                     dbConnection.Open();
                     return dbCommand.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+        internal Departamento ObterDepartamento(int idDepartamento)
+        {
+            using (SQLiteConnection dbConnection = new SQLiteConnection(CONNECTION_STRING))
+            {
+                using (SQLiteCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbCommand.CommandText = @"SELECT ID, Descricao FROM departamentos WHERE ID=@id;";
+                    dbCommand.Parameters.AddWithValue("id", idDepartamento);
+
+                    dbConnection.Open();
+
+                    using (SQLiteDataReader dataReader = dbCommand.ExecuteReader())
+                    {
+                        var departamento = new Departamento();
+                        if (dataReader.Read())
+                        {
+                            if (!dataReader.IsDBNull(0))
+                                departamento.ID = dataReader.GetInt32(0);
+                            if (!dataReader.IsDBNull(1))
+                                departamento.Descricao = dataReader.GetString(1);
+                        }
+
+                        return departamento;
+                    }
                 }
             }
         }

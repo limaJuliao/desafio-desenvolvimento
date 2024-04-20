@@ -23,5 +23,10 @@ namespace WebApp_Desafio_BackEnd.Business
         {
             return dal.ListarDepartamentos();
         }
+
+        public Departamento ObterDepartamento(int idDepartamento)
+        {
+            return dal.ObterDepartamento(idDepartamento);
+        }
     }
 }

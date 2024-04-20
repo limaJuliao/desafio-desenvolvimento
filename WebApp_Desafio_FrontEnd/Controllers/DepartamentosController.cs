@@ -77,7 +77,26 @@ namespace WebApp_Desafio_FrontEnd.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpGet]
+        public IActionResult Editar([FromRoute] int id)
+        {
+            ViewData["Title"] = "Editar Departamento";
+
+            try
+            {
+                var client = new DepartamentosApiClient();
+                var model = client.DepartamentoObter(id);
+
+                return View(nameof(Cadastrar), model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpGet]
         public IActionResult Excluir([FromRoute] int id)
         {
             try

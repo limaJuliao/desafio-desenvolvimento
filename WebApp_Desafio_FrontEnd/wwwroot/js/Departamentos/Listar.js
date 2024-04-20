@@ -23,6 +23,11 @@
         }
     });
 
+    $('#btnEditar').click(function () {
+        var data = table.row('.selected').data();
+        window.location.href = config.contextPath + 'Departamentos/Editar/' + data.ID;
+    });
+
     $('#btnExcluir').click(function () {
         console.log('Excluindo departamento');
 
