@@ -13,8 +13,10 @@ namespace WebApp_Desafio_FrontEnd.ViewModels
         [DataMember(Name = "ID")]
         public int ID { get; set; }
 
-        [Display(Name = "Descricao")]
+        [Display(Name = "Descrição")]
         [DataMember(Name = "Descricao")]
+        [Required(ErrorMessage = "{0} é obrigatório.")]
+        [StringLength(maximumLength: 100, ErrorMessage = "{0} deve conter entre {2} e {1} caracteres.", MinimumLength = 2)]
         public string Descricao { get; set; }
 
     }

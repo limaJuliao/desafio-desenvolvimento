@@ -17,11 +17,11 @@ $('#btnSalvar').click(() => {
     let form = $('#form');
 
     if (!form.valid()) {
-        console.log('Formulario Invalido');
+        FormularioInvalidoAlert(form);
         return;
     }
 
-    let data = SerielizeForm($('#form'))
+    let data = SerielizeForm(form)
 
     $.ajax({
         type: 'POST',
