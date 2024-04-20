@@ -15,14 +15,19 @@ $(document).ready(function () {
         ],
     });
 
-    $('#dataTables-Departamentos tbody').on('click', 'tr', function () {
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-        } else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    });
+    $('#dataTables-Departamentos tbody').
+        on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            } else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        })
+        .on('dblclick', 'tr', function () {
+            let data = table.row(this).data();
+            window.location.href = `${config.contextPath}Departamentos/Editar/${+ data.ID}`;
+        });
 
     $('#btnEditar').click(function () {
         var data = table.row('.selected').data();
