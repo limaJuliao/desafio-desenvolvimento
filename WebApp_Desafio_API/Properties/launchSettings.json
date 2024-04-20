@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "IIS Express": {
+    "API - IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
