@@ -14,9 +14,10 @@ $(document).ready(function () {
             { data: 'Descricao', title: 'Descrição' },
         ],
     });
+    let departamentosEditarEditar = `${config.contextPath}Departamentos/Editar`;
 
-    $('#dataTables-Departamentos tbody').
-        on('click', 'tr', function () {
+    $('#dataTables-Departamentos tbody')
+        .on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
             } else {
@@ -26,12 +27,12 @@ $(document).ready(function () {
         })
         .on('dblclick', 'tr', function () {
             let data = table.row(this).data();
-            window.location.href = `${config.contextPath}Departamentos/Editar/${+ data.ID}`;
+            window.location.href = `${departamentosEditarEditar}/${data.ID}`;
         });
 
     $('#btnEditar').click(function () {
         var data = table.row('.selected').data();
-        window.location.href = config.contextPath + 'Departamentos/Editar/' + data.ID;
+        window.location.href = `${departamentosEditarEditar}/${data.ID}`;
     });
 
     $('#btnExcluir').click(function () {
