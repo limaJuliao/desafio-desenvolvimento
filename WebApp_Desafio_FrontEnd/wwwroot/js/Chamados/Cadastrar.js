@@ -62,9 +62,11 @@
         });
     });
 
+    let solicitantes = obterSolicitantes();
+
     $('#Solicitante').on('keydown', async function () {
         if ($(this).val().length >= 1) {
-            $('#Solicitante').autocomplete({ source: await obterSolicitantes() });
+            $('#Solicitante').autocomplete({ source: await solicitantes });
         }
     })
 
