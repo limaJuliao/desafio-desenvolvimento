@@ -1,7 +1,10 @@
-﻿using System;
+﻿using ExpressiveAnnotations.Attributes;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.Web.Mvc;
 using System.Xml.Linq;
 
 namespace WebApp_Desafio_FrontEnd.ViewModels
@@ -40,6 +43,7 @@ namespace WebApp_Desafio_FrontEnd.ViewModels
         [DataMember(Name = "DataAbertura")]
         [Required(ErrorMessage = "{0} é obrigatório.")]
         [DataType(DataType.Date)]
+        [AssertThat("DataAbertura <= Today()")]
         public DateTime DataAbertura { get; set; }
 
         [DataMember(Name = "DataAberturaWrapper")]
