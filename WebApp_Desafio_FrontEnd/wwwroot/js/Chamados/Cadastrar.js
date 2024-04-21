@@ -62,4 +62,26 @@
         });
     });
 
+    $('#Solicitante').on('keydown', async function () {
+        if ($(this).val().length >= 1) {
+            $('#Solicitante').autocomplete({ source: await obterSolicitantes() });
+        }
+    })
+
+    async function obterSolicitantes() {
+        try {
+            let url = `${config.contextPath}Chamados/BuscarSolicitantes`;
+            let response = await fetch(url);
+
+            if (!response.ok)
+                throw new Erro("Erro ao obter solicitantes.");
+
+            var result = await response.json();
+
+            return result;
+        } catch (e) {
+            console.error(await erro);
+            return [];
+        }
+    }
 });

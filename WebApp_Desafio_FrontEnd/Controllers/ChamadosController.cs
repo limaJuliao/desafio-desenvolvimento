@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using WebApp_Desafio_FrontEnd.ApiClients.Desafio_API;
 using WebApp_Desafio_FrontEnd.ViewModels;
@@ -166,6 +168,15 @@ namespace WebApp_Desafio_FrontEnd.Controllers
 
             //return File(reportResult.MainStream, "application/pdf");
             return File(reportResult.MainStream, "application/octet-stream", "rptChamados.pdf");
+        }
+
+        [HttpGet]
+        public IActionResult BuscarSolicitantes()
+        {
+            var client = new ChamadosApiClient();
+            var solicitantes = client.SolicitantesBuscar();
+
+            return Ok(solicitantes);
         }
 
     }

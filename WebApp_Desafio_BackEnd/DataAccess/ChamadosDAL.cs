@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SQLite;
 using WebApp_Desafio_BackEnd.Models;
 
 namespace WebApp_Desafio_BackEnd.DataAccess
@@ -24,14 +21,14 @@ namespace WebApp_Desafio_BackEnd.DataAccess
                 using (SQLiteCommand dbCommand = dbConnection.CreateCommand())
                 {
 
-                    dbCommand.CommandText = 
-                        "SELECT chamados.ID, " + 
+                    dbCommand.CommandText =
+                        "SELECT chamados.ID, " +
                         "       Assunto, " +
                         "       Solicitante, " +
                         "       IdDepartamento, " +
-                        "       departamentos.Descricao AS Departamento, " + 
-                        "       DataAbertura " + 
-                        "FROM chamados " + 
+                        "       departamentos.Descricao AS Departamento, " +
+                        "       DataAbertura " +
+                        "FROM chamados " +
                         "INNER JOIN departamentos " +
                         "   ON chamados.IdDepartamento = departamentos.ID ";
 
@@ -134,18 +131,18 @@ namespace WebApp_Desafio_BackEnd.DataAccess
                 {
                     if (ID == 0)
                     {
-                        dbCommand.CommandText = 
+                        dbCommand.CommandText =
                             "INSERT INTO chamados (Assunto,Solicitante,IdDepartamento,DataAbertura)" +
                             "VALUES (@Assunto,@Solicitante,@IdDepartamento,@DataAbertura)";
                     }
                     else
                     {
-                        dbCommand.CommandText = 
-                            "UPDATE chamados " + 
-                            "SET Assunto=@Assunto, " + 
+                        dbCommand.CommandText =
+                            "UPDATE chamados " +
+                            "SET Assunto=@Assunto, " +
                             "    Solicitante=@Solicitante, " +
-                            "    IdDepartamento=@IdDepartamento, " + 
-                            "    DataAbertura=@DataAbertura " + 
+                            "    IdDepartamento=@IdDepartamento, " +
+                            "    DataAbertura=@DataAbertura " +
                             "WHERE ID=@ID ";
                     }
 
@@ -185,6 +182,25 @@ namespace WebApp_Desafio_BackEnd.DataAccess
             }
 
             return (regsAfetados > 0);
+        }
+
+        internal IEnumerable<string> ObterSolicitantes()
+        {
+            using (SQLiteConnection dbConnection = new SQLiteConnection(CONNECTION_STRING))
+            {
+                using (SQLiteCommand dbCommand = dbConnection.CreateCommand())
+                {
+
+                    dbCommand.CommandText = "SELECT DISTINCT Solicitante FROM chamados";
+
+                    dbConnection.Open();
+
+                    using (SQLiteDataReader dataReader = dbCommand.ExecuteReader())
+                        while (dataReader.Read())
+                            if (!dataReader.IsDBNull(0))
+                                yield return dataReader.GetString(0);
+                }
+            }
         }
     }
 }

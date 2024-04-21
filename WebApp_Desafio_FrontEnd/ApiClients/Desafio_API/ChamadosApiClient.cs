@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using WebApp_Desafio_FrontEnd.ViewModels;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebApp_Desafio_FrontEnd.ApiClients.Desafio_API
 {
@@ -12,6 +14,7 @@ namespace WebApp_Desafio_FrontEnd.ApiClients.Desafio_API
         private const string chamadosObterUrl = "api/Chamados/Obter";
         private const string chamadosGravarUrl = "api/Chamados/Gravar";
         private const string chamadosExcluirUrl = "api/Chamados/Excluir";
+        private const string solicitantesObterUrl = "api/Chamados/Solicitantes/Obter";
 
         private string desafioApiUrl = "https://localhost:44388/"; // Endereço API IIS-Express
 
@@ -96,5 +99,20 @@ namespace WebApp_Desafio_FrontEnd.ApiClients.Desafio_API
             return JsonConvert.DeserializeObject<bool>(json);
         }
 
+        internal IEnumerable<string> SolicitantesBuscar()
+        {
+            var headers = new Dictionary<string, object>()
+            {
+                { "TokenAutenticacao", tokenAutenticacao }
+            };
+
+            var response = base.Get($"{desafioApiUrl}{solicitantesObterUrl}", headers);
+
+            base.EnsureSuccessStatusCode(response);
+
+            string json = base.ReadHttpWebResponseMessage(response);
+
+            return JsonConvert.DeserializeObject<IEnumerable<string>>(json);
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace WebApp_Desafio_API.Controllers
         }
 
         [HttpGet("Obter")]
-        [ProducesResponseType(typeof(ChamadoResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(DepartamentoResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
